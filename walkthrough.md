@@ -514,17 +514,3 @@ The project favors simple, explicit code over abstraction-heavy code:
 - business rules are concentrated in services so servlets stay readable
 
 That makes the code easier to demo, teach, and debug in a classroom or small-project setting.
-
-## 8. Suggested Talking Points for Your Video Walkthrough
-
-If you record a project explanation video, the most useful order is:
-
-1. Explain the problem the app solves.
-2. Show the schema and the three main tables.
-3. Explain route protection with `AuthFilter`.
-4. Walk through login and registration.
-5. Show the catalogue and availability calculation.
-6. Demonstrate booking creation and the one-row-per-unit rule.
-7. Switch to admin and explain approval flow.
-8. Demonstrate return request, late fee, and damage fee behavior.
-9. Finish with the dashboard and summarize the key business rules.

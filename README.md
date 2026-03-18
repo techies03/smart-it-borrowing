@@ -83,19 +83,7 @@ cd smart-it-borrowing
 
 ### 2. Import the database schema
 
-Use either MySQL Workbench or a terminal command.
-
-PowerShell:
-
-```powershell
-Get-Content .\schema.sql | mysql -u root -p
-```
-
-Bash:
-
-```bash
-mysql -u root -p < schema.sql
-```
+Open `schema.sql`, copy everything, paste it into MySQL Workbench, and run it.
 
 This creates:
 
@@ -106,11 +94,7 @@ This creates:
 
 ### 3. Create the `.env` file
 
-PowerShell:
-
-```powershell
-Copy-Item .env.example .env
-```
+Copy `.env.example` to `.env`.
 
 Edit `.env` and set your real database values:
 
@@ -157,49 +141,6 @@ http://localhost:8080/smart-it-borrowing/login
 | `mvn clean` | Remove build output in `target/` |
 | `mvn dependency:tree` | Inspect dependencies |
 | `Ctrl+C` | Stop the running Cargo/Tomcat process |
-
-## Useful `curl` Examples
-
-Because this app is session-based and returns HTML pages, `curl` is best for smoke checks, redirects, and route verification.
-
-On PowerShell, prefer `curl.exe` so you get real curl rather than the built-in alias behavior.
-
-### 1. Load the login page
-
-```powershell
-curl.exe -i http://localhost:8080/smart-it-borrowing/login
-```
-
-### 2. Log in as the seeded user and save the session cookie
-
-```powershell
-curl.exe -L -c .\user.cookies.txt -d "email=john@smartit.com" -d "password=admin123" http://localhost:8080/smart-it-borrowing/login
-```
-
-### 3. Open the catalogue with the saved user session
-
-```powershell
-curl.exe -b .\user.cookies.txt "http://localhost:8080/smart-it-borrowing/items?keyword=laptop"
-```
-
-### 4. Log in as admin and load the dashboard
-
-```powershell
-curl.exe -L -c .\admin.cookies.txt -d "email=admin@smartit.com" -d "password=admin123" http://localhost:8080/smart-it-borrowing/login
-curl.exe -b .\admin.cookies.txt http://localhost:8080/smart-it-borrowing/admin/dashboard
-```
-
-### 5. Check filtered admin bookings
-
-```powershell
-curl.exe -b .\admin.cookies.txt "http://localhost:8080/smart-it-borrowing/admin/bookings?status=PENDING"
-```
-
-### 6. Log out
-
-```powershell
-curl.exe -b .\user.cookies.txt http://localhost:8080/smart-it-borrowing/logout
-```
 
 ## Main Routes
 
