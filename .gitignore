@@ -1,0 +1,6 @@
+.env
+target/
+.codex/
+.idea/
+*.iml
+*.log
