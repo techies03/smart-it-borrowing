@@ -77,7 +77,7 @@ smart-it-borrowing/
 ### 1. Clone the project
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/techies03/smart-it-borrowing.git
 cd smart-it-borrowing
 ```
 
