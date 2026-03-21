@@ -81,13 +81,13 @@ INSERT INTO users (name, email, password_hash, role) VALUES
     ('John Doe',      'john@smartit.com',  '$2a$12$PnRn.8eDoIk76cSJLtdbs.ORy9CWKG1jILmSodPbAojTTCwbC.4fK', 'USER');
 
 -- Sample items
-INSERT INTO items (name, category, quantity, status, item_condition) VALUES
-    ('Dell Laptop XPS 15',     'Laptop',       5, 'AVAILABLE',   'GOOD'),
-    ('HP LaserJet Printer',    'Printer',       2, 'AVAILABLE',   'GOOD'),
-    ('Logitech Webcam C920',   'Webcam',        8, 'AVAILABLE',   'GOOD'),
-    ('HDMI to VGA Adapter',    'Accessory',    10, 'AVAILABLE',   'GOOD'),
-    ('Wireless Mouse',         'Accessory',    15, 'AVAILABLE',   'GOOD'),
-    ('TP-Link Network Switch', 'Networking',    3, 'AVAILABLE',   'GOOD');
+INSERT INTO items (name, category, quantity, status, item_condition, image_url) VALUES
+    ('Dell Laptop XPS 15',     'Laptop',       5, 'AVAILABLE',   'GOOD', '/static/uploads/items/28eefe53-5478-4760-9f3a-48be995e09fb.png'),
+    ('HP LaserJet Printer',    'Printer',       2, 'AVAILABLE',   'GOOD', '/static/uploads/items/f46ecc0f-a7d7-4b8b-93e6-a19cda4ec1b0.png'),
+    ('Logitech Webcam C920',   'Webcam',        8, 'AVAILABLE',   'GOOD', '/static/uploads/items/3e29e9bf-74e7-48fd-b53d-052f674e53e6.png'),
+    ('HDMI to VGA Adapter',    'Accessory',    10, 'AVAILABLE',   'GOOD', '/static/uploads/items/38d36987-3e20-4a2e-b62d-d78ab391c459.png'),
+    ('Wireless Mouse',         'Accessory',    15, 'AVAILABLE',   'GOOD', '/static/uploads/items/d54f2c49-c9de-4884-8fb0-b1294e4b6e0b.png'),
+    ('TP-Link Network Switch', 'Networking',    3, 'AVAILABLE',   'GOOD', '/static/uploads/items/1ec8f94d-f53f-4232-a0b8-684fbd7c865c.png');
 
 -- ============================================================
 -- NOTE on seed passwords:
