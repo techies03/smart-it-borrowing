@@ -62,28 +62,27 @@ public class AdminBookingServlet extends HttpServlet {
             int bookingId = Integer.parseInt(idParam);
 
             switch (action == null ? "" : action) {
-                case "approve":
+                case "approve" -> {
                     bookingService.updateStatus(bookingId, "APPROVED");
                     resp.sendRedirect(buildBookingsRedirect(req, "success=approved"));
-                    break;
+                }
 
-                case "reject":
+                case "reject" -> {
                     bookingService.updateStatus(bookingId, "REJECTED");
                     resp.sendRedirect(buildBookingsRedirect(req, "success=rejected"));
-                    break;
+                }
 
-                case "confirm-return":
+                case "confirm-return" -> {
                     bookingService.confirmReturn(bookingId, parseMoney(req.getParameter("damageFee")));
                     resp.sendRedirect(buildBookingsRedirect(req, "success=return-confirmed"));
-                    break;
+                }
 
-                case "reject-return":
+                case "reject-return" -> {
                     bookingService.rejectReturn(bookingId);
                     resp.sendRedirect(buildBookingsRedirect(req, "success=return-rejected"));
-                    break;
+                }
 
-                default:
-                    resp.sendRedirect(redirectUrl);
+                default -> resp.sendRedirect(redirectUrl);
             }
         } catch (NumberFormatException e) {
             resp.sendRedirect(buildBookingsRedirect(req, "error=invalid-id"));

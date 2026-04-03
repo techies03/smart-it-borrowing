@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.time.LocalDate" %>
 <%@ page import="com.smartit.model.CategoryStockSnapshot" %>
 <%@ page import="com.smartit.model.DashboardTrendPoint" %>
 <!DOCTYPE html>
@@ -8,7 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin Dashboard — Smart IT Borrowing</title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css?v=20260403-export1">
 </head>
 <body class="app-shell">
 <%@ include file="/WEB-INF/views/partials/navbar.jsp" %>
@@ -33,6 +34,8 @@
             (List<DashboardTrendPoint>) request.getAttribute("bookingTrend");
     List<CategoryStockSnapshot> categoryStock =
             (List<CategoryStockSnapshot>) request.getAttribute("categoryStock");
+    LocalDate exportDefaultFrom = LocalDate.now().withDayOfMonth(1);
+    LocalDate exportDefaultTo = LocalDate.now();
 
     int maxTrendValue = 0;
     if (bookingTrend != null) {
@@ -61,6 +64,7 @@
         <div class="hero-actions">
             <a href="${pageContext.request.contextPath}/items?action=new" class="btn btn-primary">Add Equipment</a>
             <a href="${pageContext.request.contextPath}/admin/bookings" class="btn btn-outline">Review Bookings</a>
+            <button type="button" class="btn btn-outline" onclick="showDashboardExportModal()">Export</button>
         </div>
 
         <div class="hero-metrics">
@@ -154,7 +158,7 @@
             </div>
 
             <div class="booking-mix-layout">
-                <div class="booking-mix-ring" style="background:<%= bookingMixStyle %>">
+                <div class="booking-mix-ring" data-booking-mix-style="<%= bookingMixStyle %>">
                     <div class="booking-mix-center">
                         <strong><%= totalBookings %></strong>
                         <span>Bookings</span>
@@ -206,7 +210,7 @@
                     <div class="trend-column">
                         <span class="trend-value"><%= point.getValue() %></span>
                         <div class="trend-track">
-                            <div class="trend-bar" style="height:<%= trendHeight(point.getValue(), maxTrendValue) %>px"></div>
+                            <div class="trend-bar" data-height="<%= trendHeight(point.getValue(), maxTrendValue) %>"></div>
                         </div>
                         <span class="trend-label"><%= point.getLabel() %></span>
                     </div>
@@ -223,7 +227,7 @@
                     <h3>Category Stock</h3>
                     <p>Available and reserved units by category.</p>
                 </div>
-                <span class="badge badge-success"><%= availableUnits %> units free</span>
+                <span class="badge badge-success"><%= availableUnits %> units available</span>
             </div>
 
             <div class="category-stock-list">
@@ -238,8 +242,8 @@
                             <strong class="category-stock-total"><%= snapshot.getTotalUnits() %> units</strong>
                         </div>
                         <div class="category-stock-bar">
-                            <span class="category-stock-available" style="width:<%= widthPercent(snapshot.getAvailableUnits(), snapshot.getTotalUnits()) %>"></span>
-                            <span class="category-stock-reserved" style="width:<%= widthPercent(snapshot.getReservedUnits(), snapshot.getTotalUnits()) %>"></span>
+                            <span class="category-stock-available" data-width="<%= widthPercent(snapshot.getAvailableUnits(), snapshot.getTotalUnits()) %>"></span>
+                            <span class="category-stock-reserved" data-width="<%= widthPercent(snapshot.getReservedUnits(), snapshot.getTotalUnits()) %>"></span>
                         </div>
                     </div>
                 <%  }
@@ -312,7 +316,90 @@
     </section>
 </main>
 
-<script src="${pageContext.request.contextPath}/static/js/app.js"></script>
+<div id="dashboard-export-modal" class="modal-overlay" style="display:none">
+    <div class="modal-box modal-box-wide">
+        <h3>Export Dashboard Report</h3>
+        <p class="form-hint">
+            Choose what to export, the file format, and the borrow-date range to include in the report.
+        </p>
+
+        <form id="dashboard-export-form"
+              action="${pageContext.request.contextPath}/admin/dashboard/export"
+              method="get">
+            <div class="field-grid">
+                <div class="form-group">
+                    <label for="dashboard-export-report">Report Type</label>
+                    <div class="select-shell">
+                        <select id="dashboard-export-report" name="report" class="form-control" required>
+                            <option value="summary">Dashboard Summary</option>
+                            <option value="data">Booking Data</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="dashboard-export-format">Format</label>
+                    <div class="select-shell">
+                        <select id="dashboard-export-format" name="format" class="form-control" required>
+                            <option value="xlsx">Excel (.xlsx)</option>
+                            <option value="pdf">PDF (.pdf)</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="field-grid">
+                <div class="form-group">
+                    <label for="dashboard-export-from-date">From Date</label>
+                    <input
+                            type="date"
+                            id="dashboard-export-from-date"
+                            name="fromDate"
+                            class="form-control"
+                            value="<%= exportDefaultFrom %>"
+                            required>
+                </div>
+
+                <div class="form-group">
+                    <label for="dashboard-export-to-date">To Date</label>
+                    <input
+                            type="date"
+                            id="dashboard-export-to-date"
+                            name="toDate"
+                            class="form-control"
+                            value="<%= exportDefaultTo %>"
+                            required>
+                </div>
+            </div>
+
+            <div class="dashboard-export-note" id="dashboard-export-note">
+                Dashboard Summary includes the current equipment snapshot plus booking metrics and trends for borrow dates inside the selected range.
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary" id="dashboard-export-submit">Download Export</button>
+                <button type="button" class="btn btn-outline" onclick="hideDashboardExportModal()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src="${pageContext.request.contextPath}/static/js/app.js?v=20260403-export1"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        document.querySelectorAll('[data-booking-mix-style]').forEach(function (element) {
+            element.style.background = element.getAttribute('data-booking-mix-style');
+        });
+
+        document.querySelectorAll('.trend-bar[data-height]').forEach(function (element) {
+            element.style.height = element.getAttribute('data-height') + 'px';
+        });
+
+        document.querySelectorAll('[data-width]').forEach(function (element) {
+            element.style.width = element.getAttribute('data-width');
+        });
+    });
+</script>
 </body>
 </html>
 <%!

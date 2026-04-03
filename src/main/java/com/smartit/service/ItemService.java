@@ -28,15 +28,17 @@ public class ItemService {
      * Returns all items if both keyword and category are blank.
      */
     public List<Item> searchAndFilter(String keyword, String category) throws SQLException {
-        boolean hasKeyword  = keyword  != null && !keyword.isBlank();
-        boolean hasCategory = category != null && !category.isBlank();
+        String normalizedKeyword = normalizeOptionalText(keyword);
+        String normalizedCategory = normalizeOptionalText(category);
+        boolean hasKeyword  = normalizedKeyword != null;
+        boolean hasCategory = normalizedCategory != null;
 
         if (hasKeyword && hasCategory) {
-            return decorateAvailability(itemDAO.searchAndFilter(keyword.trim(), category.trim()));
+            return decorateAvailability(itemDAO.searchAndFilter(normalizedKeyword, normalizedCategory));
         } else if (hasKeyword) {
-            return decorateAvailability(itemDAO.searchByName(keyword.trim()));
+            return decorateAvailability(itemDAO.searchByName(normalizedKeyword));
         } else if (hasCategory) {
-            return decorateAvailability(itemDAO.filterByCategory(category.trim()));
+            return decorateAvailability(itemDAO.filterByCategory(normalizedCategory));
         } else {
             return decorateAvailability(itemDAO.findAll());
         }
@@ -143,6 +145,10 @@ public class ItemService {
 
     private String normalizeImageUrl(String imageUrl) {
         return imageUrl == null || imageUrl.isBlank() ? null : imageUrl.trim();
+    }
+
+    private String normalizeOptionalText(String value) {
+        return value == null || value.isBlank() ? null : value.trim();
     }
 
     private List<Item> decorateAvailability(List<Item> items) throws SQLException {

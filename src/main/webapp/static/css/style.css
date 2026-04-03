@@ -160,8 +160,10 @@ select.form-control{cursor:pointer}
 .modal-overlay{position:fixed;inset:0;z-index:4000;display:flex;align-items:center;justify-content:center;padding:20px;background:var(--overlay);backdrop-filter:blur(6px);-webkit-backdrop-filter:blur(6px);animation:fadeIn .24s ease}
 .modal-overlay.hiding{animation:fadeOut .22s ease forwards}
 .modal-box{width:min(520px,100%);padding:30px;border-radius:28px;background:var(--panel-solid);border:1px solid var(--border-strong);box-shadow:var(--shadow-lg);animation:scaleIn .26s cubic-bezier(.22,1,.36,1)}
+.modal-box-wide{width:min(680px,100%)}
 .modal-overlay.hiding .modal-box{animation:scaleOut .22s ease forwards}
 .modal-box h3{margin-bottom:14px;font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+.dashboard-export-note{margin-top:4px;padding:14px 16px;border-radius:20px;background:var(--soft);color:var(--sub);font-size:.88rem}
 
 .table{width:100%;border-collapse:collapse;font-size:.9rem}
 .table th{padding:14px;text-align:left;color:var(--muted);font-size:.76rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;border-bottom:1px solid var(--border);background:var(--panel-solid)}
@@ -332,4 +334,5 @@ select.form-control{cursor:pointer}
   .table-actions{flex-direction:column;align-items:stretch}.table-actions .btn{width:100%}
   .item-card-admin-actions{grid-template-columns:1fr}
   .modal-box{padding:22px}
+  .modal-box-wide{width:min(100%,100%)}
 }

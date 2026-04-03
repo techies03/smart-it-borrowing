@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
   initAlertToasts();
   initImagePreview();
   initAdminConfirmations();
+  initDashboardExportModal();
 });
 
 /* ===========================
@@ -279,7 +280,125 @@ function hideConfirmModal() {
 }
 
 /* ===========================
-   8. Item Search Filter
+   8. Dashboard Export Modal
+   =========================== */
+function initDashboardExportModal() {
+  var form = document.getElementById('dashboard-export-form');
+  if (!form) return;
+
+  var reportSelect = document.getElementById('dashboard-export-report');
+  var formatSelect = document.getElementById('dashboard-export-format');
+  var fromDateInput = document.getElementById('dashboard-export-from-date');
+  var toDateInput = document.getElementById('dashboard-export-to-date');
+  var note = document.getElementById('dashboard-export-note');
+  var submitButton = document.getElementById('dashboard-export-submit');
+
+  function syncDateBounds() {
+    if (!fromDateInput || !toDateInput) return;
+    toDateInput.min = fromDateInput.value || '';
+    fromDateInput.max = toDateInput.value || '';
+  }
+
+  function updateExportNote() {
+    if (!reportSelect || !formatSelect || !note) return;
+    var report = reportSelect.value;
+    var format = formatSelect.value;
+    var formatText = format === 'pdf'
+      ? 'PDF is best for sharing or printing.'
+      : 'Excel is better for sorting, filtering, and further analysis.';
+
+    if (report === 'data') {
+      note.textContent = 'Booking Data exports detailed booking rows whose borrow dates fall inside the selected range. ' + formatText;
+    } else {
+      note.textContent = 'Dashboard Summary includes the current equipment snapshot plus booking metrics and trends for borrow dates inside the selected range. ' + formatText;
+    }
+  }
+
+  if (reportSelect) reportSelect.addEventListener('change', updateExportNote);
+  if (formatSelect) formatSelect.addEventListener('change', updateExportNote);
+  if (fromDateInput) fromDateInput.addEventListener('change', syncDateBounds);
+  if (toDateInput) toDateInput.addEventListener('change', syncDateBounds);
+
+  form.addEventListener('submit', async function (event) {
+    event.preventDefault();
+    if (!form.reportValidity()) return;
+
+    var originalLabel = submitButton ? submitButton.textContent : '';
+    if (submitButton) {
+      submitButton.disabled = true;
+      submitButton.textContent = 'Preparing...';
+    }
+
+    try {
+      var query = new URLSearchParams(new FormData(form)).toString();
+      var response = await fetch(form.action + '?' + query, {
+        method: 'GET',
+        credentials: 'same-origin'
+      });
+
+      if (!response.ok) {
+        var message = await response.text();
+        throw new Error(message || 'Failed to export report.');
+      }
+
+      var blob = await response.blob();
+      var fileName = extractDownloadFilename(response.headers.get('Content-Disposition'));
+      var url = URL.createObjectURL(blob);
+      var link = document.createElement('a');
+      link.href = url;
+      link.download = fileName || buildFallbackExportFilename(reportSelect, formatSelect);
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      setTimeout(function () { URL.revokeObjectURL(url); }, 1000);
+
+      hideDashboardExportModal();
+      showToast('Export downloaded successfully.', 'success', 3200);
+    } catch (error) {
+      showToast(error && error.message ? error.message : 'Failed to export report.', 'danger', 5000);
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.textContent = originalLabel || 'Download Export';
+      }
+    }
+  });
+
+  syncDateBounds();
+  updateExportNote();
+}
+
+function extractDownloadFilename(contentDisposition) {
+  if (!contentDisposition) return '';
+  var utfMatch = contentDisposition.match(/filename\*\s*=\s*UTF-8''([^;]+)/i);
+  if (utfMatch && utfMatch[1]) {
+    try {
+      return decodeURIComponent(utfMatch[1].trim());
+    } catch (e) {
+      return utfMatch[1].trim();
+    }
+  }
+
+  var basicMatch = contentDisposition.match(/filename\s*=\s*"?(.*?)"?(?:;|$)/i);
+  return basicMatch && basicMatch[1] ? basicMatch[1].trim() : '';
+}
+
+function buildFallbackExportFilename(reportSelect, formatSelect) {
+  var report = reportSelect ? reportSelect.value : 'summary';
+  var format = formatSelect ? formatSelect.value : 'xlsx';
+  return (report === 'data' ? 'booking-data' : 'dashboard-summary') + '.' + format;
+}
+
+function showDashboardExportModal() {
+  openModal('dashboard-export-modal');
+}
+
+function hideDashboardExportModal() {
+  closeModal('dashboard-export-modal');
+}
+
+/* ===========================
+   9. Item Search Filter
    =========================== */
 function initItemSearch() {
   var searchInput = document.getElementById('item-search');
@@ -295,7 +414,7 @@ function initItemSearch() {
 }
 
 /* ===========================
-   9. Item Image Preview
+   10. Item Image Preview
    =========================== */
 function initImagePreview() {
   var input = document.getElementById('image');

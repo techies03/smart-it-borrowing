@@ -164,6 +164,25 @@ Browser
 
 - The dashboard is read-oriented and aggregation-heavy, so building view models in the servlet is simpler than pushing chart logic into the JSP.
 
+## 2.9 Dashboard export flow
+
+1. Admin opens `/admin/dashboard` and clicks Export.
+2. The dashboard modal collects:
+   - report type: `Dashboard Summary` or `Booking Data`
+   - output format: `XLSX` or `PDF`
+   - borrow-date range
+3. The frontend submits the export request to `/admin/dashboard/export`.
+4. `AdminDashboardExportServlet.doGet()` validates the request parameters and builds a `DashboardReportData` snapshot through `DashboardExportService`.
+5. `DashboardExportService` filters bookings by borrow date, keeps the inventory snapshot current, and renders the response as either XLSX or PDF.
+6. The browser downloads the generated file with a report-specific filename.
+
+### Why it works this way
+
+- `Dashboard Summary` is optimized for management reporting, not raw transaction review.
+- `Booking Data` is optimized for audit or spreadsheet analysis.
+- The export servlet reuses centralized report-building logic so the same metrics are available across both PDF and XLSX outputs.
+- Inventory values remain a current snapshot because stock availability is operational state, not historical borrow-date state.
+
 ## 3. Route Protection
 
 `AuthFilter` runs on `/*`.
@@ -324,6 +343,17 @@ The sections below focus on meaningful behavior. Plain getters, setters, constru
 | `buildBorrowTrend(...)` | Builds a 7-day borrow count series | Powers the dashboard trend chart |
 | `buildCategorySnapshots(...)` | Aggregates category totals, reserved units, and available units | Powers category stock visualization |
 
+### `AdminDashboardExportServlet`
+
+| Function | What it does | Why |
+| --- | --- | --- |
+| `doGet(...)` | Validates report type, format, and date range, then streams the requested export file | Single admin export entry point |
+| `normalizeReportType(String value)` | Restricts exports to `summary` or `data` | Prevents unsupported report requests |
+| `normalizeFormat(String value)` | Restricts output to `xlsx` or `pdf` | Keeps export handling explicit |
+| `parseDate(String value, String missingMessage)` | Parses required `fromDate` and `toDate` inputs | Gives clear validation errors for bad date input |
+| `buildFileName(...)` | Generates download-friendly filenames | Makes exports easier to organize |
+| `sendError(...)` | Returns plain-text export errors to the browser | Supports frontend toast/error handling |
+
 ### `AdminBookingServlet`
 
 | Function | What it does | Why |
@@ -384,6 +414,20 @@ The sections below focus on meaningful behavior. Plain getters, setters, constru
 | `normalizeKeywordLike(String keyword)` | Converts a search term into a SQL `LIKE` pattern | Shared filter behavior |
 | `extractBookingId(String keyword)` | Parses values like `BK-0004` into integer booking IDs | Lets search accept human-readable references |
 | `normalizeStatus(String status)` | Normalizes status filter input | Shared filtering helper |
+
+### `DashboardExportService`
+
+| Function | What it does | Why |
+| --- | --- | --- |
+| `buildReportData(LocalDate fromDate, LocalDate toDate)` | Builds a reusable export snapshot with filtered booking metrics, trend points, category stock, and booking rows | Keeps export aggregation in one place |
+| `writeSummaryXlsx(...)` | Generates the dashboard summary workbook | Shareable spreadsheet export |
+| `writeBookingDataXlsx(...)` | Generates the detailed booking workbook | Spreadsheet-friendly raw data export |
+| `writeSummaryPdf(...)` | Generates the dashboard summary PDF | Printable/shareable management report |
+| `writeBookingDataPdf(...)` | Generates the booking-data PDF | Printable detailed report |
+| `filterBookingsByBorrowDate(...)` | Keeps only bookings whose borrow date falls inside the selected range | Makes export filtering consistent |
+| `buildBookingTrend(...)` | Builds a date-by-date series for the selected range | Supports trend output in both PDF and XLSX |
+| `buildCategorySnapshots(...)` | Aggregates current stock by category | Reuses dashboard-style stock reporting |
+| `validateDateRange(...)` | Rejects missing or reversed date ranges | Prevents invalid exports |
 
 ## 6.5 DAOs
 
@@ -476,6 +520,12 @@ The sections below focus on meaningful behavior. Plain getters, setters, constru
 - Constructor and getters hold a label/value pair for the 7-day booking trend.
 - Why: the dashboard chart needs a small dedicated view model.
 
+### `DashboardReportData`
+
+- Constructor and getters hold the reusable export snapshot used by PDF and XLSX generation.
+- It combines the selected borrow-date range, current inventory totals, booking status counts, trend data, category stock, and optional detailed booking rows.
+- `getApprovedBookings()` derives the approved-active figure by excluding return-pending rows from the broader active total.
+
 ## 6.7 Frontend JavaScript (`app.js`)
 
 The frontend script is intentionally small and utility-driven.
@@ -501,6 +551,11 @@ The frontend script is intentionally small and utility-driven.
 | `initAdminConfirmations()` | Intercepts admin forms and routes them through the shared confirm modal | Consistent confirmation UX |
 | `showAdminConfirmModal(form)` | Populates the confirm modal, including damage-fee rules | Reduces duplicated modal markup |
 | `hideConfirmModal()` | Closes the confirm modal and clears pending form state | UI helper |
+| `initDashboardExportModal()` | Wires the export modal fields, date bounds, and download request flow | Keeps export UI behavior centralized |
+| `showDashboardExportModal()` | Opens the dashboard export modal | Dashboard action helper |
+| `hideDashboardExportModal()` | Closes the export modal | Dashboard action helper |
+| `extractDownloadFilename(...)` | Parses a filename from the response headers | Preserves meaningful download names |
+| `buildFallbackExportFilename(...)` | Builds a safe fallback filename when headers are missing | Prevents awkward browser downloads |
 | `initItemSearch()` | Client-side item search helper | Optional fast filtering helper |
 | `initImagePreview()` | Previews uploaded images in the item form | Better admin item-edit UX |
 

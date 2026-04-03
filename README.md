@@ -1,6 +1,6 @@
 # Smart IT Equipment Borrowing & Tracking System
 
-Smart IT Borrowing is a Java web application for managing IT equipment requests inside an organization. Regular users can browse the catalogue, submit borrow requests, and request returns. Admins can manage inventory, approve or reject bookings, inspect returns, and monitor usage from a dashboard.
+Smart IT Borrowing is a Java web application for managing IT equipment requests inside an organization. Regular users can browse the catalogue, submit borrow requests, and request returns. Admins can manage inventory, approve or reject bookings, inspect returns, monitor usage from a dashboard, and export dashboard reports as Excel or PDF files.
 
 ## Demo Video
 
@@ -12,6 +12,7 @@ Replace this placeholder after you record your walkthrough:
   - catalogue browsing and booking creation
   - admin approval and return confirmation
   - dashboard overview and stock/penalty behavior
+  - dashboard export to XLSX and PDF
 
 ## Core Features
 
@@ -24,6 +25,7 @@ Replace this placeholder after you record your walkthrough:
 | Inventory | Track total units, reserved units, available units, status, and condition |
 | Penalties | Apply RM 5.00 per overdue day and optional damage fees during return confirmation |
 | Dashboard | Show totals, booking mix, booking trend, category stock, and attention items |
+| Reporting | Export a dashboard summary or detailed booking data in XLSX or PDF format for a selected borrow-date range |
 
 ## Tech Stack
 
@@ -36,6 +38,7 @@ Replace this placeholder after you record your walkthrough:
 | Database | MySQL 8+ |
 | Authentication | BCrypt |
 | Config | dotenv-java |
+| Reporting | Apache POI, OpenPDF |
 | Frontend | JSP, custom CSS, vanilla JavaScript |
 
 ## Prerequisites
@@ -115,6 +118,7 @@ Why this command matters:
 - `clean` removes the old build output
 - `package` compiles the code and creates the WAR
 - `cargo:run` starts embedded Tomcat and deploys the WAR at `/smart-it-borrowing`
+- Maven will also download dependencies such as Apache POI and OpenPDF automatically the first time you build
 
 ### 5. Open the application
 
@@ -136,6 +140,7 @@ http://localhost:8080/smart-it-borrowing/login
 | Command | Purpose |
 | --- | --- |
 | `mvn clean package cargo:run` | Full local run with embedded Tomcat |
+| `mvn compile` | Download dependencies and compile the app |
 | `mvn clean package` | Build the WAR only |
 | `mvn -q -DskipTests package` | Fast verification build |
 | `mvn clean` | Remove build output in `target/` |
@@ -157,6 +162,7 @@ http://localhost:8080/smart-it-borrowing/login
 | `/bookings?action=new&itemId=X` | GET | Authenticated user | Show booking form |
 | `/bookings` | POST | Authenticated user | Create booking or request return |
 | `/admin/dashboard` | GET | Admin | Load dashboard cards and charts |
+| `/admin/dashboard/export` | GET | Admin | Export dashboard summary or booking data as XLSX or PDF |
 | `/admin/bookings` | GET, POST | Admin | Review, filter, approve, reject, or confirm returns |
 
 ## Booking Status Model
@@ -254,6 +260,16 @@ Notes:
 - Late fee is RM 5.00 per day based on the submitted return date.
 - Damage fee is only allowed when an item was borrowed as `GOOD` and returned as `DAMAGED`.
 - If a good unit comes back damaged, usable stock may be reduced instead of freezing the entire item set.
+- Dashboard Summary exports use the selected borrow-date range for booking metrics, but inventory figures remain the current stock snapshot at export time.
+
+## Dashboard Export Reports
+
+Admins can export reports directly from the dashboard.
+
+- `Dashboard Summary`: current inventory snapshot, booking totals, status counts, daily booking trend, and category stock summary
+- `Booking Data`: detailed booking rows for the selected borrow-date range
+- `Formats`: Excel `.xlsx` and PDF `.pdf`
+- `Date filter`: both report types filter bookings by borrow date
 
 ## Developer Notes
 
