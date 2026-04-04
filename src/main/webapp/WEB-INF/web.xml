@@ -5,7 +5,7 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
          version="4.0">
 
-    <display-name>Smart IT Equipment Borrowing System</display-name>
+    <display-name>TrackIT: Smart IT Equipment Inventory System</display-name>
 
     <!-- ===== Welcome (default) page ===== -->
     <welcome-file-list>

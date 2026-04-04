@@ -1,8 +1,8 @@
-package com.smartit.service;
+package com.trackit.service;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.smartit.dao.UserDAO;
-import com.smartit.model.User;
+import com.trackit.dao.UserDAO;
+import com.trackit.model.User;
 
 import java.sql.SQLException;
 import java.util.Optional;
@@ -68,3 +68,4 @@ public class UserService {
         return user;
     }
 }
+

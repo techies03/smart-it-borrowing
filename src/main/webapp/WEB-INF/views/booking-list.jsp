@@ -2,13 +2,13 @@
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDateTime" %>
 <%@ page import="java.time.format.DateTimeFormatter" %>
-<%@ page import="com.smartit.model.Booking" %>
+<%@ page import="com.trackit.model.Booking" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Bookings — Smart IT Borrowing</title>
+    <title>My Bookings — TrackIT</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
 <body class="app-shell">
@@ -251,3 +251,4 @@
                 .replace("'", "&#39;");
     }
 %>
+

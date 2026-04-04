@@ -1,4 +1,4 @@
-package com.smartit.servlet;
+package com.trackit.servlet;
 
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -28,3 +28,4 @@ public class LogoutServlet extends HttpServlet {
         doGet(req, resp);
     }
 }
+

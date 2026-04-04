@@ -1,14 +1,14 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ page import="java.util.List" %>
 <%@ page import="java.time.LocalDate" %>
-<%@ page import="com.smartit.model.CategoryStockSnapshot" %>
-<%@ page import="com.smartit.model.DashboardTrendPoint" %>
+<%@ page import="com.trackit.model.CategoryStockSnapshot" %>
+<%@ page import="com.trackit.model.DashboardTrendPoint" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard — Smart IT Borrowing</title>
+    <title>Admin Dashboard — TrackIT</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css?v=20260403-export1">
 </head>
 <body class="app-shell">
@@ -34,8 +34,8 @@
             (List<DashboardTrendPoint>) request.getAttribute("bookingTrend");
     List<CategoryStockSnapshot> categoryStock =
             (List<CategoryStockSnapshot>) request.getAttribute("categoryStock");
-    LocalDate exportDefaultFrom = LocalDate.now().withDayOfMonth(1);
     LocalDate exportDefaultTo = LocalDate.now();
+    LocalDate exportDefaultFrom = exportDefaultTo.minusMonths(1);
 
     int maxTrendValue = 0;
     if (bookingTrend != null) {
@@ -465,3 +465,4 @@
         return end;
     }
 %>
+

@@ -1,7 +1,7 @@
-package com.smartit.dao;
+package com.trackit.dao;
 
-import com.smartit.model.Booking;
-import com.smartit.util.DBConnection;
+import com.trackit.model.Booking;
+import com.trackit.util.DBConnection;
 
 import java.math.BigDecimal;
 import java.sql.*;
@@ -374,3 +374,4 @@ public class BookingDAO {
         return b;
     }
 }
+

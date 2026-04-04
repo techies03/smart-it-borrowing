@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register — Smart IT Borrowing</title>
+    <title>Register — TrackIT</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
 <body class="auth-page">
@@ -13,9 +13,9 @@
     <section class="auth-aside">
         <div>
             <div class="auth-brand">
-                <span class="brand-mark">SI</span>
+                <span class="brand-mark">TI</span>
                 <span class="auth-brand-copy">
-                    <strong>Smart IT Borrowing</strong>
+                    <strong>TrackIT</strong>
                     <small>User registration</small>
                 </span>
             </div>

@@ -1,7 +1,7 @@
-package com.smartit.servlet;
+package com.trackit.servlet;
 
-import com.smartit.model.Booking;
-import com.smartit.service.BookingService;
+import com.trackit.model.Booking;
+import com.trackit.service.BookingService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -127,3 +127,4 @@ public class AdminBookingServlet extends HttpServlet {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }
+

@@ -1,4 +1,4 @@
-# Smart IT Borrowing Walkthrough
+# TrackIT Walkthrough
 
 This document explains how the project is structured, how the main flows work, which functions matter, and why the code is shaped this way.
 
