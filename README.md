@@ -59,7 +59,7 @@ trackit/
 |-- walkthrough.md
 `-- src/
     `-- main/
-        |-- java/com/smartit/
+        |-- java/com/trackit/
         |   |-- dao/
         |   |-- filter/
         |   |-- model/
@@ -106,6 +106,12 @@ DB_URL=jdbc:mysql://localhost:3306/trackit?useSSL=false&serverTimezone=Asia/Kual
 DB_USERNAME=root
 DB_PASSWORD=your_password
 ```
+
+Notes:
+
+- `DB_URL` must start with `jdbc:mysql://`
+- use port `3306` for MySQL unless your provider gives you a different MySQL port
+- keep credentials in `DB_USERNAME` and `DB_PASSWORD`, not inside `DB_URL`
 
 ### 4. Build and run the application
 
