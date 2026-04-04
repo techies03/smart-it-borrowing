@@ -1,9 +1,9 @@
-package com.smartit.service;
+package com.trackit.service;
 
-import com.smartit.dao.BookingDAO;
-import com.smartit.dao.ItemDAO;
-import com.smartit.model.Booking;
-import com.smartit.model.Item;
+import com.trackit.dao.BookingDAO;
+import com.trackit.dao.ItemDAO;
+import com.trackit.model.Booking;
+import com.trackit.model.Item;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
@@ -313,3 +313,4 @@ public class BookingService {
         return status == null || status.isBlank() ? null : status.trim().toUpperCase();
     }
 }
+

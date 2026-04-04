@@ -1,5 +1,5 @@
 /* ============================================================
-   Smart IT Borrowing — Client-side Logic
+   TrackIT — Client-side Logic
    Theme toggle · Toast notifications · Modal · Mobile nav
    ============================================================ */
 

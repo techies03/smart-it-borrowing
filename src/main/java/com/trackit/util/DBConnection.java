@@ -1,4 +1,4 @@
-package com.smartit.util;
+package com.trackit.util;
 
 import io.github.cdimascio.dotenv.Dotenv;
 
@@ -23,7 +23,7 @@ public class DBConnection {
             .ignoreIfMissing()                           // won't throw if no .env file (uses OS env vars)
             .load();
 
-    /** JDBC URL — e.g. jdbc:mysql://localhost:3306/smart_it_borrowing */
+    /** JDBC URL — e.g. jdbc:mysql://localhost:3306/trackit */
     private static final String DB_URL      = getEnv("DB_URL");
     /** Database username */
     private static final String DB_USERNAME = getEnv("DB_USERNAME");
@@ -67,3 +67,4 @@ public class DBConnection {
         return value;
     }
 }
+

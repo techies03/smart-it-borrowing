@@ -1,4 +1,4 @@
-package com.smartit.model;
+package com.trackit.model;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -102,3 +102,4 @@ public class Booking {
                 + ", quantity=" + quantity + ", status='" + status + "', penalty=" + penalty + "}";
     }
 }
+

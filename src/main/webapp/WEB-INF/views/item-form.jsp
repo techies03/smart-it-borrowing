@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.smartit.model.Item" %>
+<%@ page import="com.trackit.model.Item" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +9,7 @@
         Item item = (Item) request.getAttribute("item");
         boolean isEdit = (item != null && item.getId() > 0);
     %>
-    <title><%= isEdit ? "Edit" : "Add" %> Item — Smart IT Borrowing</title>
+    <title><%= isEdit ? "Edit" : "Add" %> Item — TrackIT</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
 <body class="app-shell">
@@ -170,3 +170,4 @@
 <script src="${pageContext.request.contextPath}/static/js/app.js"></script>
 </body>
 </html>
+

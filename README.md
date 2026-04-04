@@ -1,12 +1,12 @@
-# Smart IT Equipment Borrowing & Tracking System
+# TrackIT: Smart IT Equipment Inventory System
 
-Smart IT Borrowing is a Java web application for managing IT equipment requests inside an organization. Regular users can browse the catalogue, submit borrow requests, and request returns. Admins can manage inventory, approve or reject bookings, inspect returns, monitor usage from a dashboard, and export dashboard reports as Excel or PDF files.
+TrackIT is a Java web application for managing IT equipment requests inside an organization. Regular users can browse the catalogue, submit borrow requests, and request returns. Admins can manage inventory, approve or reject bookings, inspect returns, monitor usage from a dashboard, and export dashboard reports as Excel or PDF files.
 
 ## Demo Video
 
 Replace this placeholder after you record your walkthrough:
 
-- Video link: [Project walkthrough placeholder](https://example.com/smart-it-borrowing-demo)
+- Video link: [Project walkthrough placeholder](https://example.com/trackit-demo)
 - Suggested video sections:
   - login and seeded accounts
   - catalogue browsing and booking creation
@@ -51,7 +51,7 @@ Replace this placeholder after you record your walkthrough:
 ## Project Layout
 
 ```text
-smart-it-borrowing/
+trackit/
 |-- pom.xml
 |-- schema.sql
 |-- .env.example
@@ -80,8 +80,8 @@ smart-it-borrowing/
 ### 1. Clone the project
 
 ```bash
-git clone https://github.com/techies03/smart-it-borrowing.git
-cd smart-it-borrowing
+git clone https://github.com/techies03/trackit.git
+cd trackit
 ```
 
 ### 2. Import the database schema
@@ -90,7 +90,7 @@ Open `schema.sql`, copy everything, paste it into MySQL Workbench, and run it.
 
 This creates:
 
-- database: `smart_it_borrowing`
+- database: `trackit`
 - tables: `users`, `items`, `bookings`
 - indexes for booking and category lookups
 - seed users and sample items
@@ -102,7 +102,7 @@ Copy `.env.example` to `.env`.
 Edit `.env` and set your real database values:
 
 ```dotenv
-DB_URL=jdbc:mysql://localhost:3306/smart_it_borrowing?useSSL=false&serverTimezone=Asia/Kuala_Lumpur&allowPublicKeyRetrieval=true
+DB_URL=jdbc:mysql://localhost:3306/trackit?useSSL=false&serverTimezone=Asia/Kuala_Lumpur&allowPublicKeyRetrieval=true
 DB_USERNAME=root
 DB_PASSWORD=your_password
 ```
@@ -117,7 +117,7 @@ Why this command matters:
 
 - `clean` removes the old build output
 - `package` compiles the code and creates the WAR
-- `cargo:run` starts embedded Tomcat and deploys the WAR at `/smart-it-borrowing`
+- `cargo:run` starts embedded Tomcat and deploys the WAR at `/trackit`
 - Maven will also download dependencies such as Apache POI and OpenPDF automatically the first time you build
 
 ### 5. Open the application
@@ -125,15 +125,15 @@ Why this command matters:
 Use this URL after the server starts:
 
 ```text
-http://localhost:8080/smart-it-borrowing/login
+http://localhost:8080/trackit/login
 ```
 
 ## Default Seed Accounts
 
 | Role | Email | Password |
 | --- | --- | --- |
-| Admin | `admin@smartit.com` | `admin123` |
-| User | `john@smartit.com` | `admin123` |
+| Admin | `admin@trackit.com` | `admin123` |
+| User | `john@trackit.com` | `admin123` |
 
 ## Useful Commands
 
@@ -275,9 +275,10 @@ Admins can export reports directly from the dashboard.
 
 - Run commands from the project root because `DBConnection` reads `.env` from the working directory.
 - Uploaded images are stored under `/static/uploads/items/`.
-- The embedded Tomcat context path is `/smart-it-borrowing`, configured in `pom.xml`.
+- The embedded Tomcat context path is `/trackit`, configured in `pom.xml`.
 - Route protection is centralized in `AuthFilter`.
 
 ## Further Reading
 
 See [walkthrough.md](./walkthrough.md) for the architecture walkthrough, class-by-class explanation, function breakdown, and reasoning behind the major flows.
+

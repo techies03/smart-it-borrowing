@@ -1,8 +1,8 @@
-package com.smartit.service;
+package com.trackit.service;
 
-import com.smartit.dao.BookingDAO;
-import com.smartit.dao.ItemDAO;
-import com.smartit.model.Item;
+import com.trackit.dao.BookingDAO;
+import com.trackit.dao.ItemDAO;
+import com.trackit.model.Item;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -167,3 +167,4 @@ public class ItemService {
         item.setReservedUnits(bookingDAO.countReservedUnitsForItem(item.getId()));
     }
 }
+

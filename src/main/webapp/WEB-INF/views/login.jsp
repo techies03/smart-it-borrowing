@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login — Smart IT Borrowing</title>
+    <title>Login — TrackIT</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/static/css/style.css">
 </head>
 <body class="auth-page">
@@ -13,15 +13,15 @@
     <section class="auth-aside">
         <div>
             <div class="auth-brand">
-                <span class="brand-mark">SI</span>
+                <span class="brand-mark">TI</span>
                 <span class="auth-brand-copy">
-                    <strong>Smart IT Borrowing</strong>
-                    <small>Equipment booking system</small>
+                    <strong>TrackIT</strong>
+                    <small>Smart IT equipment inventory system</small>
                 </span>
             </div>
 
             <span class="kicker mt-2">Welcome Back</span>
-            <h1>Sign in to Smart IT Borrowing.</h1>
+            <h1>Sign in to TrackIT.</h1>
             <p>Sign in to browse equipment, submit requests, or manage bookings.</p>
         </div>
 
@@ -40,11 +40,11 @@
             <p>Demo Sign-In</p>
             <div class="credential-row">
                 <span>Admin</span>
-                <strong>admin@smartit.com / admin123</strong>
+                <strong>admin@trackit.com / admin123</strong>
             </div>
             <div class="credential-row">
                 <span>User</span>
-                <strong>john@smartit.com / admin123</strong>
+                <strong>john@trackit.com / admin123</strong>
             </div>
         </div>
     </section>
@@ -97,3 +97,4 @@
 <script src="${pageContext.request.contextPath}/static/js/app.js"></script>
 </body>
 </html>
+

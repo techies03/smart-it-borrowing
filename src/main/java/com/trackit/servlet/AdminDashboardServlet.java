@@ -1,12 +1,12 @@
-package com.smartit.servlet;
+package com.trackit.servlet;
 
-import com.smartit.model.Booking;
-import com.smartit.model.CategoryStockSnapshot;
-import com.smartit.model.DashboardTrendPoint;
-import com.smartit.model.Item;
-import com.smartit.service.BookingService;
-import com.smartit.service.ItemService;
-import com.smartit.dao.UserDAO;
+import com.trackit.model.Booking;
+import com.trackit.model.CategoryStockSnapshot;
+import com.trackit.model.DashboardTrendPoint;
+import com.trackit.model.Item;
+import com.trackit.service.BookingService;
+import com.trackit.service.ItemService;
+import com.trackit.dao.UserDAO;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -167,3 +167,4 @@ public class AdminDashboardServlet extends HttpServlet {
         return snapshots;
     }
 }
+

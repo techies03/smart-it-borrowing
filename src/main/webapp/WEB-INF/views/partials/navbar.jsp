@@ -1,5 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ page import="com.smartit.model.User" %>
+<%@ page import="com.trackit.model.User" %>
 <%
     User navUser = (User) session.getAttribute("loggedInUser");
     String ctx = request.getContextPath();
@@ -10,10 +10,10 @@
 %>
 <nav class="navbar">
     <a href="<%= ctx %>/items" class="nav-brand">
-        <span class="brand-mark">SI</span>
+        <span class="brand-mark">TI</span>
         <span class="brand-copy">
-            <strong>Smart IT Borrowing</strong>
-            <small>Equipment Desk</small>
+            <strong>TrackIT</strong>
+            <small>IT Inventory System</small>
         </span>
     </a>
 
@@ -62,3 +62,4 @@
     </div>
 </div>
 <% } %>
+

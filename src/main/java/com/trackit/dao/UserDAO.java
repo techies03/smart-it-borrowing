@@ -1,7 +1,7 @@
-package com.smartit.dao;
+package com.trackit.dao;
 
-import com.smartit.model.User;
-import com.smartit.util.DBConnection;
+import com.trackit.model.User;
+import com.trackit.util.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -114,3 +114,4 @@ public class UserDAO {
         );
     }
 }
+
