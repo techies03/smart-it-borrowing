@@ -34,8 +34,8 @@
             (List<DashboardTrendPoint>) request.getAttribute("bookingTrend");
     List<CategoryStockSnapshot> categoryStock =
             (List<CategoryStockSnapshot>) request.getAttribute("categoryStock");
-    LocalDate exportDefaultFrom = LocalDate.now().withDayOfMonth(1);
     LocalDate exportDefaultTo = LocalDate.now();
+    LocalDate exportDefaultFrom = exportDefaultTo.minusMonths(1);
 
     int maxTrendValue = 0;
     if (bookingTrend != null) {
