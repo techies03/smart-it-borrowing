@@ -42,6 +42,7 @@ public class DBConnection {
      */
     public static Connection getConnection() {
         try {
+            validateJdbcUrl(DB_URL);
             Class.forName("com.mysql.cj.jdbc.Driver");
             return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
         } catch (ClassNotFoundException e) {
@@ -50,6 +51,33 @@ public class DBConnection {
             throw new RuntimeException(
                     "Cannot connect to database. Check DB_URL, DB_USERNAME, DB_PASSWORD in .env file. Error: "
                     + e.getMessage(), e);
+        }
+    }
+
+    private static void validateJdbcUrl(String jdbcUrl) {
+        if (!jdbcUrl.startsWith("jdbc:mysql://")) {
+            StringBuilder message = new StringBuilder(
+                    "DB_URL must be a MySQL JDBC URL like "
+                    + "'jdbc:mysql://localhost:3306/trackit?useSSL=false&serverTimezone=Asia/Kuala_Lumpur&allowPublicKeyRetrieval=true'.");
+
+            if (jdbcUrl.startsWith("jdbc:mysql:") && !jdbcUrl.startsWith("jdbc:mysql://")) {
+                message.append(" The current value is missing '//' after 'jdbc:mysql:'.");
+            }
+            if (jdbcUrl.contains("@")) {
+                message.append(" Do not embed credentials inside DB_URL; use DB_USERNAME and DB_PASSWORD instead.");
+            }
+            if (jdbcUrl.contains(":5432")) {
+                message.append(" Port 5432 is typically PostgreSQL, not MySQL.");
+            }
+
+            throw new RuntimeException(message.toString());
+        }
+
+        String withoutPrefix = jdbcUrl.substring("jdbc:mysql://".length());
+        if (!withoutPrefix.contains("/")) {
+            throw new RuntimeException(
+                    "DB_URL must include a database name after the host and port, for example "
+                    + "'jdbc:mysql://localhost:3306/trackit?...'.");
         }
     }
 
