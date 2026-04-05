@@ -1,13 +1,13 @@
 -- ============================================================
--- TrackIT: Smart IT Equipment Inventory System
--- MySQL Schema  |  Database: trackit
+-- Smart IT Equipment Borrowing & Tracking System
+-- MySQL Schema  |  Database: smart_it_borrowing
 -- ============================================================
 
-CREATE DATABASE IF NOT EXISTS trackit
+CREATE DATABASE IF NOT EXISTS smart_it_borrowing
     CHARACTER SET utf8mb4
     COLLATE utf8mb4_unicode_ci;
 
-USE trackit;
+USE smart_it_borrowing;
 
 -- ---------------------------------------------------------------
 -- TABLE: users
@@ -77,8 +77,8 @@ CREATE INDEX idx_items_category      ON items (category);
 -- NOTE: Regenerate BCrypt hashes via SeedData.java if needed
 -- ---------------------------------------------------------------
 INSERT INTO users (name, email, password_hash, role) VALUES
-    ('System Admin',  'admin@trackit.com', '$2a$12$PnRn.8eDoIk76cSJLtdbs.ORy9CWKG1jILmSodPbAojTTCwbC.4fK', 'ADMIN'),
-    ('John Doe',      'john@trackit.com',  '$2a$12$PnRn.8eDoIk76cSJLtdbs.ORy9CWKG1jILmSodPbAojTTCwbC.4fK', 'USER');
+    ('System Admin',  'admin@smartit.com', '$2a$12$PnRn.8eDoIk76cSJLtdbs.ORy9CWKG1jILmSodPbAojTTCwbC.4fK', 'ADMIN'),
+    ('John Doe',      'john@smartit.com',  '$2a$12$PnRn.8eDoIk76cSJLtdbs.ORy9CWKG1jILmSodPbAojTTCwbC.4fK', 'USER');
 
 -- Sample items
 INSERT INTO items (name, category, quantity, status, item_condition, image_url) VALUES
@@ -91,8 +91,7 @@ INSERT INTO items (name, category, quantity, status, item_condition, image_url) 
 
 -- ============================================================
 -- NOTE on seed passwords:
---   admin@trackit.com → password: admin123
---   john@trackit.com  → password: admin123   (change after first login)
+--   admin@smartit.com → password: admin123
+--   john@smartit.com  → password: admin123   (change after first login)
 --   Hash above is BCrypt of "admin123" at cost 12
 -- ============================================================
-

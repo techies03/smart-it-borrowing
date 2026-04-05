@@ -1,4 +1,4 @@
-package com.trackit.model;
+package com.smartit.model;
 
 
 /**
@@ -93,4 +93,3 @@ public class Item {
                 + "', quantity=" + quantity + ", status='" + status + "'}";
     }
 }
-

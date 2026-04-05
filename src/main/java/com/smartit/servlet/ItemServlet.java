@@ -1,8 +1,8 @@
-package com.trackit.servlet;
+package com.smartit.servlet;
 
-import com.trackit.model.Item;
-import com.trackit.model.User;
-import com.trackit.service.ItemService;
+import com.smartit.model.Item;
+import com.smartit.model.User;
+import com.smartit.service.ItemService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.MultipartConfig;
@@ -301,4 +301,3 @@ public class ItemServlet extends HttpServlet {
         return item;
     }
 }
-

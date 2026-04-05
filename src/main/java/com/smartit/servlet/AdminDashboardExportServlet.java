@@ -1,7 +1,7 @@
-package com.trackit.servlet;
+package com.smartit.servlet;
 
-import com.trackit.model.DashboardReportData;
-import com.trackit.service.DashboardExportService;
+import com.smartit.model.DashboardReportData;
+import com.smartit.service.DashboardExportService;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
@@ -108,4 +108,3 @@ public class AdminDashboardExportServlet extends HttpServlet {
         resp.getWriter().write(message);
     }
 }
-

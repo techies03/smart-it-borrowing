@@ -1,4 +1,4 @@
-package com.trackit.model;
+package com.smartit.model;
 
 /**
  * DashboardTrendPoint — simple label/value pair for dashboard chart rows.
@@ -21,4 +21,3 @@ public class DashboardTrendPoint {
         return value;
     }
 }
-

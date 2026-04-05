@@ -1,7 +1,7 @@
-package com.trackit.servlet;
+package com.smartit.servlet;
 
-import com.trackit.model.User;
-import com.trackit.service.UserService;
+import com.smartit.model.User;
+import com.smartit.service.UserService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -82,4 +82,3 @@ public class LoginServlet extends HttpServlet {
         }
     }
 }
-

@@ -1,6 +1,6 @@
-package com.trackit.servlet;
+package com.smartit.servlet;
 
-import com.trackit.service.UserService;
+import com.smartit.service.UserService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -70,4 +70,3 @@ public class RegisterServlet extends HttpServlet {
         return s == null || s.isBlank();
     }
 }
-

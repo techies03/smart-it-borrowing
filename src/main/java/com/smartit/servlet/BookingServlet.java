@@ -1,10 +1,10 @@
-package com.trackit.servlet;
+package com.smartit.servlet;
 
-import com.trackit.model.Booking;
-import com.trackit.model.Item;
-import com.trackit.model.User;
-import com.trackit.service.BookingService;
-import com.trackit.service.ItemService;
+import com.smartit.model.Booking;
+import com.smartit.model.Item;
+import com.smartit.model.User;
+import com.smartit.service.BookingService;
+import com.smartit.service.ItemService;
 
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -185,4 +185,3 @@ public class BookingServlet extends HttpServlet {
         return URLEncoder.encode(value, StandardCharsets.UTF_8);
     }
 }
-

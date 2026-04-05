@@ -5,11 +5,11 @@
          http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.trackit</groupId>
-    <artifactId>trackit</artifactId>
+    <groupId>com.smartit</groupId>
+    <artifactId>smart-it-borrowing</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
-    <name>TrackIT: Smart IT Equipment Inventory System</name>
+    <name>Smart IT Equipment Borrowing System</name>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
@@ -83,7 +83,7 @@
     </dependencies>
 
     <build>
-        <finalName>trackit</finalName>
+        <finalName>smart-it-borrowing</finalName>
         <plugins>
             <!-- Compiler plugin -->
             <plugin>
@@ -123,11 +123,11 @@
                     </configuration>
                     <deployables>
                         <deployable>
-                            <groupId>com.trackit</groupId>
-                            <artifactId>trackit</artifactId>
+                            <groupId>com.smartit</groupId>
+                            <artifactId>smart-it-borrowing</artifactId>
                             <type>war</type>
                             <properties>
-                                <context>/trackit</context>
+                                <context>/smart-it-borrowing</context>
                             </properties>
                         </deployable>
                     </deployables>
@@ -136,4 +136,3 @@
         </plugins>
     </build>
 </project>
-

@@ -1,4 +1,4 @@
-package com.trackit.service;
+package com.smartit.service;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -9,12 +9,12 @@ import com.lowagie.text.Phrase;
 import com.lowagie.text.pdf.PdfPCell;
 import com.lowagie.text.pdf.PdfPTable;
 import com.lowagie.text.pdf.PdfWriter;
-import com.trackit.dao.UserDAO;
-import com.trackit.model.Booking;
-import com.trackit.model.CategoryStockSnapshot;
-import com.trackit.model.DashboardReportData;
-import com.trackit.model.DashboardTrendPoint;
-import com.trackit.model.Item;
+import com.smartit.dao.UserDAO;
+import com.smartit.model.Booking;
+import com.smartit.model.CategoryStockSnapshot;
+import com.smartit.model.DashboardReportData;
+import com.smartit.model.DashboardTrendPoint;
+import com.smartit.model.Item;
 import org.apache.poi.ss.usermodel.BorderStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
@@ -684,4 +684,3 @@ public class DashboardExportService {
         return value == null || value.isBlank() ? "-" : value.trim();
     }
 }
-

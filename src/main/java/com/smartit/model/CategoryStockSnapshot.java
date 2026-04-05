@@ -1,4 +1,4 @@
-package com.trackit.model;
+package com.smartit.model;
 
 /**
  * CategoryStockSnapshot — grouped stock figures for one item category.
@@ -33,4 +33,3 @@ public class CategoryStockSnapshot {
         return availableUnits;
     }
 }
-

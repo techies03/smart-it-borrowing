@@ -1,4 +1,4 @@
-package com.trackit.model;
+package com.smartit.model;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -152,4 +152,3 @@ public class DashboardReportData {
         return Math.max(activeBookings - returnPendingBookings, 0);
     }
 }
-

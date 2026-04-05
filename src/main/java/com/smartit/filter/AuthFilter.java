@@ -1,6 +1,6 @@
-package com.trackit.filter;
+package com.smartit.filter;
 
-import com.trackit.model.User;
+import com.smartit.model.User;
 
 import jakarta.servlet.*;
 import jakarta.servlet.annotation.WebFilter;
@@ -69,4 +69,3 @@ public class AuthFilter implements Filter {
             || path.startsWith("/error/");
     }
 }
-

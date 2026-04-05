@@ -1,4 +1,4 @@
-package com.trackit.model;
+package com.smartit.model;
 
 /**
  * User — Entity model for system users.
@@ -52,4 +52,3 @@ public class User {
         return "User{id=" + id + ", name='" + name + "', email='" + email + "', role='" + role + "'}";
     }
 }
-

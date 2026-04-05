@@ -1,7 +1,7 @@
-package com.trackit.dao;
+package com.smartit.dao;
 
-import com.trackit.model.Item;
-import com.trackit.util.DBConnection;
+import com.smartit.model.Item;
+import com.smartit.util.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -180,4 +180,3 @@ public class ItemDAO {
         );
     }
 }
-
