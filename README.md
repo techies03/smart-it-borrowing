@@ -2,6 +2,24 @@
 
 TrackIT is a Java web application for managing IT equipment requests inside an organization. Regular users can browse the catalogue, submit borrow requests, and request returns. Admins can manage inventory, approve or reject bookings, inspect returns, monitor usage from a dashboard, and export dashboard reports as Excel or PDF files.
 
+## Documentation
+
+Choose the document you need:
+
+- [User Manual](user-manual.md) for step-by-step usage from the borrower and administrator perspective
+- [Walkthrough](walkthrough.md) for system flow, architecture, business rules, and code structure
+
+## Demo Video
+
+Replace this placeholder after you record your walkthrough:
+
+- Video link: [Project walkthrough placeholder](https://example.com/trackit-demo)
+- Suggested video sections:
+  - login and seeded accounts
+  - catalogue browsing and booking creation
+  - admin approval and return confirmation
+  - dashboard overview and stock/penalty behavior
+  - dashboard export to XLSX and PDF
 ## Core Features
 
 | Area | What it does |
@@ -44,7 +62,9 @@ trackit/
 |-- schema.sql
 |-- .env.example
 |-- README.md
+|-- user-manual.md
 |-- walkthrough.md
+|-- figures/
 `-- src/
     `-- main/
         |-- java/com/trackit/
